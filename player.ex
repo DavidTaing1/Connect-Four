@@ -84,6 +84,3 @@ defmodule Player do
     if col < 6, do: draw_symbols(board, row, col + 1)
   end
 end
-
-#[[1, 2, 3],[1],[1,2,3,4,5],[1,2],[1,2],[1,2],[1,2]]
-#Player.game([[],[],[],[],[],[],[]])

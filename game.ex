@@ -88,37 +88,29 @@ defmodule Game do
   end
 
   def check_diagonal(board) do
-    check_diagonal1(board)
+    lines1 = [{3, 0}, {4, 0}, {5, 0}, {5, 1}, {5, 2}, {5, 3}]
+    lines2 = [{2, 0}, {1, 0}, {0, 0}, {0, 1}, {0, 2}, {0, 3}]
+    check_diagonal_help(board, lines1, true)
     or
-    check_diagonal2(board)
+    check_diagonal_help(board, lines2, false)
   end
 
-  def check_diagonal1(board) do
-    check_diagonal_rek1(board, "", 0, 3, 0)
-    or
-    check_diagonal_rek1(board, "", 0, 4, 0)
-    or
-    check_diagonal_rek1(board, "", 0, 5, 0)
-    or
-    check_diagonal_rek1(board, "", 0, 5, 1)
-    or
-    check_diagonal_rek1(board, "", 0, 5, 2)
-    or
-    check_diagonal_rek1(board, "", 0, 5, 3)
-  end
-
-  def check_diagonal2(board) do
-    check_diagonal_rek2(board, "", 0, 2, 0)
-    or
-    check_diagonal_rek2(board, "", 0, 1, 0)
-    or
-    check_diagonal_rek2(board, "", 0, 0, 0)
-    or
-    check_diagonal_rek2(board, "", 0, 0, 1)
-    or
-    check_diagonal_rek2(board, "", 0, 0, 2)
-    or
-    check_diagonal_rek2(board, "", 0, 0, 3)
+  def check_diagonal_help(board, lines, mode) do
+    if length(lines) > 0 do
+      [head|tail] = lines
+      {row, col} = head
+      win = if mode,
+               do: check_diagonal_rek1(board, "", 0, row, col),
+               else: check_diagonal_rek2(board, "", 0, row, col)
+      cond do
+        win ->
+          true
+        !win ->
+          check_diagonal_help(board, tail, mode)
+      end
+    else
+      false
+    end
   end
 
   def check_diagonal_rek1(board, symbol, number, row, col) do
