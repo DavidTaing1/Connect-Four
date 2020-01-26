@@ -1,5 +1,6 @@
 defmodule Player do
   def init(player_number) do
+    IO.puts("Warten auf Server...")
     Node.connect(:game@localhost)
 
     spawn(Player, game(player_number), [])
@@ -23,13 +24,13 @@ defmodule Player do
         IO.puts("Der Gegner ist am Zug.")
       {current_board, :win} ->
         draw_board(current_board)
-        IO.puts("Sie haben gewonnen!")
+        IO.puts("Sie haben gewonnen!\nWarte auf neues Spiel...")
       {current_board, :lose} ->
         draw_board(current_board)
-        IO.puts("Sie haben vorloren!")
+        IO.puts("Sie haben vorloren!\nWarte auf neues Spiel...")
       {current_board, :draw} ->
         draw_board(current_board)
-        IO.puts("Unentschieden!")
+        IO.puts("Unentschieden!\nWarte auf neues Spiel...")
     end
     game_loop(player_name)
   end
