@@ -40,18 +40,14 @@ defmodule Player do
 
     next_turn_int = String.to_integer(next_turn)
 
-    selected_col = Enum.at(board, next_turn_int - 1)
-
-    col_length = length(selected_col)
-
     cond do
-      col_length >= 6 ->
+      next_turn_int > 7 or next_turn_int < 1->
+        IO.puts("Bitte nur Zahlen zwischen 1 und 7.")
+        do_turn(board)
+      length(Enum.at(board, next_turn_int - 1)) >= 6 ->
         IO.puts("Spalte ist bereits voll.")
         do_turn(board)
-      next_turn_int > 7 or next_turn_int < 1 ->
-        IO.puts("Bitte nur Zahlen zwischen 1 und 7.")
-      true ->
-        next_turn_int
+      true -> next_turn_int
     end
   end
 
