@@ -47,12 +47,12 @@ defmodule Game do
     new_col = List.insert_at(selected_col, col_length, symbol)
     new_board = List.replace_at(board, column - 1, new_col)
 
-    {new_board, check_win(new_board)}
+    {new_board, check_board(new_board)}
   end
 
   # only board checking after this
 
-  def check_baord(board) do
+  def check_board(board) do
     cond do
       check_win(board) ->
         true
@@ -64,23 +64,20 @@ defmodule Game do
   end
 
   def check_win(board) do
-    if check_draw(board) do
-      :draw
-    else
-      check_diagonal(board)
-      or
-      check_rows(board, 0)
-      or
-      check_cols(board, 0)
-    end
+    check_diagonal(board)
+    or
+    check_rows(board, 0)
+    or
+    check_cols(board, 0)
   end
 
+  # check wether every col is full
   def check_draw(board) do
     [head | tail] = board
     cond do
       length(head) < 6 ->
         false
-      length(board) == 1->
+      length(board) == 1 ->
         true
       true ->
         check_draw(tail)
@@ -97,7 +94,7 @@ defmodule Game do
 
   def check_diagonal_help(board, lines, mode) do
     if length(lines) > 0 do
-      [head|tail] = lines
+      [head | tail] = lines
       {row, col} = head
       win = if mode,
                do: check_diagonal_rek1(board, "", 0, row, col),
