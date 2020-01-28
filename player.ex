@@ -27,7 +27,7 @@ defmodule Player do
         IO.puts("Sie haben gewonnen!\nWarte auf neues Spiel...")
       {current_board, :lose} ->
         draw_board(current_board)
-        IO.puts("Sie haben vorloren!\nWarte auf neues Spiel...")
+        IO.puts("Sie haben verloren!\nWarte auf neues Spiel...")
       {current_board, :draw} ->
         draw_board(current_board)
         IO.puts("Unentschieden!\nWarte auf neues Spiel...")
